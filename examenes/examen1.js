@@ -3,8 +3,7 @@ let variable2 = 1000
 let x = 100
 let xs = []
 
-for (let variable3 = variable2 - 500; variable1 < 5; x++) {        
-    // console.log([x, x%11])
+for (let variable3 = variable2 - 500; variable1 < 5; x++) {    
     switch (x%11) {            
         case 1:
             console.log('')
