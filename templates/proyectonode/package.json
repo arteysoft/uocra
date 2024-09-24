@@ -1,0 +1,14 @@
+{
+  "name": "primerospasos",
+  "version": "1.0.0",
+  "description": "voy a guardar como para ver algo",
+  "main": "ruletav2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Azul",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^10.0.0"
+  }
+}
