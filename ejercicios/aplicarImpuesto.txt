@@ -1,0 +1,48 @@
+Ejercicio 
+
+crear 1000 usuarios fake 
+crear un archivo por usuario, el nombre del archivo va a ser
+el uuid.txt
+estos archivos (que van a ser 1000) se van a ubicar en la carpeta
+c:\input
+
+Leer cada uno de los archivos y vamos a ponerle un impuesto
+sobre el campo amount
+del 5%
+
+y lo vamos a volcar en c:\output
+
+src/20240926.js este va a ser nuestro modulo
+module.exports = () => {}
+
+src/inicio tengo que let ejercicioHoy = require('20240926')
+ejercicioHoy()
+
+for (let i=1; i<=1000; i++) {
+   crearElObjetFaker()
+   DIRECTORIO + "\\" + uuid + ".txt"
+   let str = JSON.stringify(objetoCreado, null, 4)
+   console.log(str)
+   fs.writeFileSync(rutaCompleta, contenido, 'utf-8')
+}
+
+// Una vez probado, dentro del for que va ?
+componer la ruta de cada uno de los archivos como:
+
+DIRECTORIO + "\\" + uuid + ".txt"
+
+-----------------------------------------------------
+Leer un directorio c:\input
+Cada uno de los contenidos los voy a convertir a Binario
+let objContenido = JSON.parse(contenidoStr)
+
+aplicar el impuesto sobre el campo amount
+
+calcular un impuesto del 5% y lo ponemos en nuevo campo
+impuesto
+
+c:\output
+
+
+
+
