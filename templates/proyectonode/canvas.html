@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+
+ <head><title>Ejemplo canvas aprenderaprogramar.com</title>
+
+  <meta charset="utf-8"/>
+
+  <script type="text/javascript">
+
+    function dibujar() {
+
+      var canvas = document.getElementById("canvas");
+
+        var ctx = canvas.getContext("2d");
+
+        ctx.fillStyle = "rgb(200,0,0)";
+
+        ctx.fillRect (20, 20, 150, 100);
+
+        ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+
+        ctx.fillRect (30, 30, 55, 350);
+
+    }
+
+  </script>
+
+ </head>
+
+ <body onload="dibujar();">
+
+   <canvas id="canvas" width="200" height="400" style="border-style:solid;">
+
+   Su navegador no tiene soporte para mostrar el contenido
+
+   </canvas>
+
+ </body>
+
+</html>
