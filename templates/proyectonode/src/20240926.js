@@ -44,10 +44,7 @@ let visualizarUsuarios = (usuarios) => {
 ///////////////////////////////////////////////////
 
 let leerContenidoArchivo = (rutaDelArchivo) => { 
-    let strContenido = fs.readFileSync(rutaDelArchivo, 'binary')
-    console.log(strContenido)
-    
-    return strContenido
+    return fs.readFileSync(rutaDelArchivo, 'utf-8')
 }
 
 let leerNombresDeArchivosExistentesCarpeta = () => {
@@ -61,8 +58,11 @@ let recorrerCadaUnoDeLosArchivos = () => {
         let pathCompleto = [CARPETA_ARHCIVOS_INPUT, arch].join('')
         pathCompleto = CARPETA_ARHCIVOS_INPUT + arch
         pathCompleto = CARPETA_ARHCIVOS_INPUT.concat(arch)
+        fs.lstatSync(pathCompleto).isFile()
         console.log(pathCompleto)
-        leerContenidoArchivo(pathCompleto)
+        let contenido = leerContenidoArchivo(pathCompleto)
+        let objUsuario = JSON.parse(contenido)
+        console.log(parseFloat(objUsuario.amount) * 0.05)
     }
 }
 
