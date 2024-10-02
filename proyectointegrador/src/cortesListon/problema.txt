@@ -1,0 +1,17 @@
+Primera parte del proyecto integrador
+
+La primera parte del proyecto integrador consiste en
+calcular la cantidad de listones de madera que necesito
+en virtud de cortes que el cliente me pide.
+
+El stock de listones es de 300cm y de 420 cm
+
+El pedido del cliente me viene en un array con
+los cortes en cm
+
+Se va a utilizar un algoritmo de fuerza bruta para
+calcular la mejor solucion con el menor desperdicio.
+
+Sobre las funciones "puras" se va a realizar test 
+unitarios con mocha.
+
