@@ -1,11 +1,16 @@
 import 'dotenv/config'
+import crearUsuariosRandom from './crearUsuariosRandom/main'
+import crearImpuestoSobreUsuarios from './crearImpuestoSobreUsuarios/main'
 
 switch (process.argv[2]) {
-    case 'creararchivos':        
+    case 'crearUsuariosRandom':
+        crearUsuariosRandom()
         break
-    case 'discoverNumerosPrimos':        
-        break
-    case 'probar':        
+    case 'crearImpuestoSobreUsuarios':
+        crearImpuestoSobreUsuarios()
+        break        
+    case 'probar':
+        console.log('Entro aca')
         break
     case 'server':        
         break
