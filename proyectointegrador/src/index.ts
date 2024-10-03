@@ -1,6 +1,8 @@
 import 'dotenv/config'
 import crearUsuariosRandom from './crearUsuariosRandom/main'
 import crearImpuestoSobreUsuarios from './crearImpuestoSobreUsuarios/main'
+import corteListon from './cortesListon/main'
+import test_liston from './cortesListon/test'
 
 switch (process.argv[2]) {
     case 'crearUsuariosRandom':
@@ -9,13 +11,14 @@ switch (process.argv[2]) {
     case 'crearImpuestoSobreUsuarios':
         crearImpuestoSobreUsuarios()
         break        
-    case 'probar':
-        console.log('Entro aca')
+    case 'test':
+        test_liston()
         break
     case 'cortesListon':
-        console.log('agregar proyecto integrador parte 1')
+        corteListon()
         break
-    case 'server':
+    case 'test':        
+
         break
     case 'cliente':        
         break
