@@ -162,7 +162,7 @@ Arrange
 let cortes = [10, 20, 30]
 Act
 let resp = aplicarCortes(cortes, 15)
-Assert resp.cortesAplicados equals [10, 20, 30]
+Assert resp.cortesAplicados equals [10]
 Assert resp.cortesRestantes equals [20, 30]
 Assert resp.quedanCortes equals true
 Assert resp.desperdicio equals 33.3
