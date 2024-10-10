@@ -1,13 +1,17 @@
-const assert = require('assert');
 import {calcularDesperdicio} from '../src/cortesListon/main'
 
-describe('pruebas proyecto integrador', function() {    
-    it('prueba desperdicio', function() {
+describe('sum function', () => {
+    it('should return the sum of two numbers', () => {
         let input = [10, 15]
         let output = calcularDesperdicio(input)
-        
-        assert.strictEqual(output.liston, 300);
-        assert.strictEqual(output.desperdicio, 0.8);
-    });
-});
 
+        expect(output.liston).toBe(300);        
+    });
+  
+    it('el desperdicio tiene que ser 0.8', () => {
+        let input = [10, 15]
+        let output = calcularDesperdicio(input)
+
+        expect(output.desperdicio).toBe(0.1);
+    });
+  });

@@ -2,7 +2,7 @@ import 'dotenv/config'
 import crearUsuariosRandom from './crearUsuariosRandom/main'
 import crearImpuestoSobreUsuarios from './crearImpuestoSobreUsuarios/main'
 import corteListon from './cortesListon/main'
-import test_liston from './cortesListon/test'
+import test_liston from './cortesListon/testeo'
 
 switch (process.argv[2]) {
     case 'crearUsuariosRandom':
@@ -11,7 +11,7 @@ switch (process.argv[2]) {
     case 'crearImpuestoSobreUsuarios':
         crearImpuestoSobreUsuarios()
         break        
-    case 'test':
+    case 'testeo':
         test_liston()
         break
     case 'cortesListon':
