@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import crearUsuariosRandom from './crearUsuariosRandom/main'
 import crearImpuestoSobreUsuarios from './crearImpuestoSobreUsuarios/main'
-import corteListon from './cortesListon/main'
+import {corteListon} from './cortesListon/main'
 import test_liston from './cortesListon/testeo'
 
 switch (process.argv[2]) {

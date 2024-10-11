@@ -1,93 +1,71 @@
-export default () => {
+export let corteListon = () => {
     console.log('es el problema de corte de liston')
-    /*
-    Pasar un array con cortes y obtener
-    {
-        liston: 300 o 420
-        desperdicio: 0.00
-    }
-    al ser una funcion pura, testear con mocha
-    */   
 }
 
-export let calcularDesperdicio = (cortes) => {
+let calcularDesperdicio = (sumaCortes, tamanioListon) => {
+    return Math.floor(1000 - Math.round(sumaCortes /
+        tamanioListon * 1000)) / 10
+}
+
+export let aplicarCortes = (cortes: number[], tamanioListon: number) => {
+    let sumaCortes: number = cortes.reduce((tot, c) => tot + c, 0)
+    let arrVacio: number[] = []
+    if (sumaCortes <= tamanioListon) {
+        return {
+            cortesAplicados: cortes,
+            cortesRestantes: arrVacio,
+            quedanCortes: false,
+            desperdicio: calcularDesperdicio(sumaCortes, tamanioListon),
+        }
+    }
+
+    let totalConsumido = 0
+    let totalProyectado = 0
+    let salir = false
+    let puntoDeCorte = 0
+
+    for (let idx = 0; salir === false; idx++) {
+        totalProyectado += cortes[idx]
+        if (totalProyectado > tamanioListon) {
+            puntoDeCorte = idx
+            salir = true
+            continue
+        }
+        totalConsumido = totalProyectado
+    }
+
     return {
-        liston: 300,
-        desperdicio: 0.10
+        cortesAplicados: cortes.slice(0, puntoDeCorte),
+        cortesRestantes: cortes.slice(puntoDeCorte),
+        quedanCortes: true,
+        desperdicio: calcularDesperdicio(totalConsumido,
+            tamanioListon)
     }
 }
 
-
-/*
-let calcularDesperdicio = (xsCortes, longitudListon) => {
-    let sumaCortes = xsCortes.reduce((acumulado, z) => acumulado + z, 0)
-    if (sumaCortes > longitudListon) {
-        throw new Error('calcularDesperdicio::longitud inadmisible')
-    }
-    return (1 - (sumaCortes/longitudListon))
+let randomizarListon = () => {
+    return (Math.random() > 0.50) ? 300 : 420
 }
 
-let calcularRatio = (acumuladoDeCortes, largoTabla) => {
-    if (acumuladoDeCortes > largoTabla) {
-        throw new Error('calcularRatio::longitud inadmisible')
-    }
-    let r = acumuladoDeCortes/largoTabla
-    return (Math.round(100 - (r*100)) / 100)
+export interface ItemSolucion {
+    cortes:number[],
+    liston:number,
+    desperdicio:number
 }
 
-let calcularCortesEnListon3M = (xsParam) => {
-    const TOTAL_ITEMS_ARRAY = xsParam.length
-    const TOTAL_LARGO_LISTON = 300
-    let largoAcumulado = 0
+let encontrarSolucion = (cortes) => {
+    let solucion:ItemSolucion[] = []
 
-    for (let idx = 0; idx < TOTAL_ITEMS_ARRAY; idx++) {
-        if (xsParam[idx] > TOTAL_LARGO_LISTON) {
-            throw new Error('un corte, no puede superar los 3m')
-        }                
-        // console.log(idx, xsParam[idx], largoAcumulado)        
-        if ((largoAcumulado + xsParam[idx]) > TOTAL_LARGO_LISTON) {
-            // Prueba y error            
-            // console.log('calculo desperdicio sobre: ', largoAcumulado)
-            return { 
-                asignados: xsParam.slice(0, idx),
-                restanAsignar: xsParam.slice(idx), 
-                desperdicio: calcularRatio(largoAcumulado, TOTAL_LARGO_LISTON) }
-        }        
-        largoAcumulado += xsParam[idx]
+    for (let continuar = true ;continuar;) {
+        let liston = randomizarListon()
+        let resp = aplicarCortes(cortes, liston)
+        let itemSolucion:ItemSolucion = {
+            cortes: resp.cortesAplicados,
+            liston: liston,
+            desperdicio: resp.desperdicio
+        }
+
+        solucion.push(itemSolucion)
+        continuar = resp.quedanCortes
     }
-
-    // console.log('calculo desperdicio sobre: ', largoAcumulado)
-    return { 
-        asignados: xsParam.slice(0, TOTAL_LARGO_LISTON),
-        restanAsignar: [],         
-        desperdicio: calcularRatio(largoAcumulado, TOTAL_LARGO_LISTON) }
 }
-*/
-
-/*
-let totalCortes = [60, 120, 35, 32, 33, 77, 200, 210, 265]
-console.log('Total de cortes: ')
-console.log(totalCortes)
-
-let prueba1 = calcularCortesEnListon3M(totalCortes)
-console.log(prueba1)
-prueba1 = calcularCortesEnListon3M(prueba1.restanAsignar)
-console.log(prueba1)
-prueba1 = calcularCortesEnListon3M(prueba1.restanAsignar)
-console.log(prueba1)
-prueba1 = calcularCortesEnListon3M(prueba1.restanAsignar)
-console.log(prueba1)
-prueba1 = calcularCortesEnListon3M(prueba1.restanAsignar)
-console.log(prueba1)
-prueba1 = calcularCortesEnListon3M(prueba1.restanAsignar)
-console.log(prueba1)
-
-console.log(calcularRatio(13, 100))
-
-*/
-
-/*
-let desp = calcularCortesEnListon3M([5, 4, 5, 6, 7, 5, 5, 50, 7])
-console.log(desp)
-*/
-          
