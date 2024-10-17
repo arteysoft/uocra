@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",    
     "compilar": ".\\node_modules\\.bin\\tsc --watch",
-    "start": "node ./build/index.js cortesListon"
+    "start": "node ./build/index.js http"
   },
   "keywords": [],
   "author": "",

@@ -5,6 +5,9 @@ import crearImpuestoSobreUsuarios from './crearImpuestoSobreUsuarios/main'
 import {corteListon} from './cortesListon/main'
 import test_liston from './cortesListon/testeo'
 import { leyendoarchivos } from './ok/leertxt'
+import {hola} from './usodets'
+import eldefault from './usodets'
+import httpserver from './http/default'
 
 switch (process.argv[2]) {
     case 'crearUsuariosRandom':
@@ -30,10 +33,12 @@ switch (process.argv[2]) {
         }
         
         break
-    case 'test':        
-
+    case 'ts':        
+        hola()
+        eldefault()
         break
-    case 'cliente':        
+    case 'http':
+        httpserver()
         break
     case 'levantararchivos':        
         break
