@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Integrador</title>
+</head>
+<body>
+    <h1>Cortes de listones</h1>
+    <input type="text" id="miCorte"/>
+    <button id="miBoton">Aplicar corte</button>
+    <p id="resultado"></p>
+
+    <script>
+        document.getElementById('miBoton').addEventListener('click', function() {
+        // Obtener el txt del div
+        const arrCortes = document.getElementById('miCorte').value.split('-');
+        for (let corte  of arrCortes) {
+            console.log(corte)
+        }
+        console.log(JSON.stringify({cortes: arrCortes}))
+        // Mostrar el txt en otro elemento
+        document.getElementById('resultado').innerText = arrCortes;
+        });
+    </script>
+</body>
+</html>

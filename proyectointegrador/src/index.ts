@@ -17,8 +17,11 @@ switch (process.argv[2]) {
         test_liston()
         break
     case 'cortesListon':
+        corteListon()
+        break
+    case 'leerarchivos':
         {
-            let path = 'C:/curso/uocra/proyectointegrador/src/ok/ok.txt'
+            let path = 'C:/uocra/proyectointegrador/src/ok/ok.txt'
             let res = leyendoarchivos(() => 
                 // "20 10 15 10 101"
                 fs.readFileSync(path,'utf-8')

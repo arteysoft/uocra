@@ -14,7 +14,7 @@ describe("leyendoArchivos", () => {
 
   it("Prueba de la funcion con archivo", () => {
     let resultado = leyendoarchivos(() => {
-      return fs.readFileSync("C:/curso/uocra/proyectointegrador/src/ok/ok.txt",'utf-8')
+      return fs.readFileSync("C:/uocra/proyectointegrador/src/ok/ok.txt",'utf-8')
     });
 
     expect(resultado).toEqual([

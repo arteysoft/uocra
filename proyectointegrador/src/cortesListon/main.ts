@@ -1,7 +1,9 @@
+import fs from 'fs'
+
 export let corteListon = () => {
     console.log('es el problema de corte de liston')
+    forEver()
 }
-
 let calcularDesperdicio = (sumaCortes, tamanioListon) => {
     return Math.floor(1000 - Math.round(sumaCortes /
         tamanioListon * 1000)) / 10
@@ -53,12 +55,13 @@ export interface ItemSolucion {
     desperdicio:number
 }
 
-let encontrarSolucion = (cortes) => {
+let encontrarSolucion = (cortesParam):ItemSolucion[] => {
     let solucion:ItemSolucion[] = []
 
     for (let continuar = true ;continuar;) {
         let liston = randomizarListon()
-        let resp = aplicarCortes(cortes, liston)
+        let resp = aplicarCortes(cortesParam, liston)
+        
         let itemSolucion:ItemSolucion = {
             cortes: resp.cortesAplicados,
             liston: liston,
@@ -66,6 +69,38 @@ let encontrarSolucion = (cortes) => {
         }
 
         solucion.push(itemSolucion)
-        continuar = resp.quedanCortes
+        continuar = resp.quedanCortes        
+        cortesParam = resp.cortesRestantes
     }
+
+    return solucion
 }
+
+// Iterar hata encontrar la mejor solucion
+
+let forEver = () => {
+    let mejorSolucion:ItemSolucion[] = []
+    let menorDesperdicio = Infinity
+ 
+    let strCortes = fs.readFileSync('c:/uocra/proyectointegrador/src/cortesListon/cortes.txt', 'utf-8')
+    let cortes:number[] = strCortes.split(' ').map(z => parseInt(z))
+
+    for (let b = 1; b <= 10; b++) {
+       cortes = cortes.sort((a,b) => Math.random() - 0.5)       
+       let solucion = encontrarSolucion(cortes)       
+       let desperdicioDeLaSolucion =
+           solucion
+                .map(z => z.desperdicio)
+                .reduce((a, b) => a + b, 0)
+ 
+       if (desperdicioDeLaSolucion < menorDesperdicio) {
+           menorDesperdicio = desperdicioDeLaSolucion
+           mejorSolucion = solucion      
+           console.log('Encontre una solucion mejor')     
+           console.log(mejorSolucion)
+           console.log('Desperdicio total: ', desperdicioDeLaSolucion)
+       }
+    }    
+ }
+ 
+
