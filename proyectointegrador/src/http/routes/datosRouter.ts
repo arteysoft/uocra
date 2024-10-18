@@ -23,13 +23,15 @@ export default express.Router()
         next()
     })    
     .get('/ej1', async (request, response) => {
-        let datos:number[] = []
+        let datos:number[] = [2, 3, 9, 88].sort((a,b)=> Math.random()-0.5)
+        /*
         for (let idx = 1; idx <= 10; idx++) {
             let newData = gaussian(idx, 5, 1.20) + 1
             newData = Math.round(newData * 1000)
             console.log(newData)
             datos.push(newData)
         }
+        */
 
         try {
             response            
