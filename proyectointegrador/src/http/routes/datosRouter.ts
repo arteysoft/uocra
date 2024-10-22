@@ -44,5 +44,20 @@ export default express.Router()
             .send()
         }
     })
-    
+    .post('/recibircortes', async (request, response) => {
 
+        console.log(request.body)
+
+        let objListones = {listones: [300, 420, 300]}
+
+        try {
+            response            
+            .status(200)
+            .send(JSON.stringify(objListones))
+        }
+        catch(err) {
+            response            
+            .status(500)
+            .send()
+        }
+    })

@@ -1,18 +1,20 @@
 import express from 'express'
 const path = require('path');
 import datosRouter  from './routes/datosRouter'
+import calculosRouter from './routes/calculosRouter';
 
 export default () => {
 
     console.log('Levantando servidor HTTP')
     let app = express()
 
-    console.log(path.join(__dirname, '../../public'))
-
+    app.use(express.json());
     app.use(express.static(
         path.join(__dirname, '../../public')));
 
     app.use('/api/datos', datosRouter)
+    app.use('/api/calculos', calculosRouter)
+    
 
     app.get("/hola", (req, res) => {
         res.send("hola").end()
