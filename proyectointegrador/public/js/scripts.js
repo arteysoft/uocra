@@ -58,4 +58,4 @@ document.getElementById('enviarCortes').addEventListener('click', () => {
       .catch(e => {
         console.log(e);
       });
-    })
+})

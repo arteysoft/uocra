@@ -14,7 +14,6 @@ export default () => {
 
     app.use('/api/datos', datosRouter)
     app.use('/api/calculos', calculosRouter)
-    
 
     app.get("/hola", (req, res) => {
         res.send("hola").end()
