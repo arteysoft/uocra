@@ -18,3 +18,25 @@ export default express.Router()
             .send()
         }
     })
+    .post('/ipc', async (request, response) => {
+
+        console.log(request.body)
+
+        let total = request.body.xs.reduce((zacum, z) => {
+            let i = z / 100
+            return zacum += (zacum * i)
+        }, 100)
+
+        total = total - 100
+
+        try {
+            response            
+            .status(200)
+            .send(JSON.stringify({inflacionTrimestral:total}))
+        }
+        catch(err) {
+            response            
+            .status(500)
+            .send()
+        }
+    })
