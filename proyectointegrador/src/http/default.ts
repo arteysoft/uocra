@@ -37,3 +37,13 @@ export default () => {
     
     */
 }
+
+let strArr:string[] = ["12", "23", "48"]
+let floatArr:number[] = strArr.map(z => parseFloat(z))
+
+if (floatArr.every(z => isNaN(z) === false)) {
+    console.log('ok')
+}
+else {
+    console.log('NOT OK')
+}

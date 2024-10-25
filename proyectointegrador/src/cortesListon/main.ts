@@ -2,7 +2,7 @@ import fs from 'fs'
 
 export let corteListon = () => {
     console.log('es el problema de corte de liston')
-    forEver()
+    forEver("10 20 50 120 111 160 15 20 35 45 85 85 85 15 14 13 200 290 180 154 69 25 288")
 }
 let calcularDesperdicio = (sumaCortes, tamanioListon) => {
     return Math.floor(1000 - Math.round(sumaCortes /
@@ -78,14 +78,13 @@ let encontrarSolucion = (cortesParam):ItemSolucion[] => {
 
 // Iterar hata encontrar la mejor solucion
 
-let forEver = () => {
+export let forEver = (strCortes: string) => {
     let mejorSolucion:ItemSolucion[] = []
     let menorDesperdicio = Infinity
  
-    let strCortes = fs.readFileSync('c:/uocra/proyectointegrador/src/cortesListon/cortes.txt', 'utf-8')
     let cortes:number[] = strCortes.split(' ').map(z => parseInt(z))
 
-    for (let b = 1; b <= 10; b++) {
+    for (let b = 1; b <= 10000; b++) {
        cortes = cortes.sort((a,b) => Math.random() - 0.5)       
        let solucion = encontrarSolucion(cortes)       
        let desperdicioDeLaSolucion =
@@ -96,11 +95,9 @@ let forEver = () => {
        if (desperdicioDeLaSolucion < menorDesperdicio) {
            menorDesperdicio = desperdicioDeLaSolucion
            mejorSolucion = solucion      
-           console.log('Encontre una solucion mejor')     
-           console.log(mejorSolucion)
-           console.log('Desperdicio total: ', desperdicioDeLaSolucion)
        }
-    }    
+    }
+    return mejorSolucion 
  }
  
 

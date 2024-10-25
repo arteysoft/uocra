@@ -66,5 +66,3 @@ switch (process.argv[2]) {
         console.log('Atencion, se debe enviar un parametro con la accion a seguir')
 }
 
-
-

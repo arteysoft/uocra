@@ -1,5 +1,7 @@
 import express from 'express'
 
+import { forEver } from '../../cortesListon/main'
+
 export default express.Router()    
     .post('/sumar', async (request, response) => {
 
@@ -33,6 +35,23 @@ export default express.Router()
             response            
             .status(200)
             .send(JSON.stringify({inflacionTrimestral:total}))
+        }
+        catch(err) {
+            response            
+            .status(500)
+            .send()
+        }
+    })
+    .post('/cortes', async (request, response) => {
+        console.log(request.body)
+        console.log(request.body.cortes)
+
+        let solucion = forEver(request.body.cortes)
+
+        try {
+            response            
+            .status(200)
+            .send(JSON.stringify({tuSolucion:solucion}))
         }
         catch(err) {
             response            
