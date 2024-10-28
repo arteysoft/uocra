@@ -1,40 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UOCRA</title>
-    <link rel="stylesheet" href="./css/misestilos.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Gráfico de Cortes</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>    
 </head>
 <body>
-    <div id="contenedor">
-        <table id="tabla_de_cortes">
-            <thead>
-                <tr>
-                    <td>Corte</td>                    
-                </tr>
-            <thead>
-            <tbody>
-            <tr>
-                <td><input class="txtIndice" type="text" /></td>                
-            </tr>            
-            <tr>
-                <td><input class="txtIndice" type="text" /></td>                
-            </tr>
-            <tr>
-                <td><input class="txtIndice" type="text" /></td>                
-            </tr>
-            <tr>
-                <td><input class="btn btn-primary" id="btnCortes" type="button" value="calcular"></td>
-            </tr>
-            </tbody>
-        </table>
-        
-    </div>    
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="./js/scripts.js"></script>
+    <div class="container">
+        <h1>Gráfico de Cortes</h1>
+        <input type="text" id="cortesInput" placeholder="Ingrese la lista de cortes separados por espacios">
+        <button id="generarGrafico">Generar Gráfico</button>
+        <div id="graficoCortes" style="width: 900px; height: 500px;"></div>
+    </div>
+    <script type="text/javascript" src="./js/main.js"></script>
 </body>
 </html>

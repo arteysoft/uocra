@@ -100,27 +100,3 @@ document.getElementById('calcularIPC').addEventListener('click', () => {
 
 */
 
-document.getElementById('btnCortes').addEventListener('click', () => {
-    let cortes = "10 20 50 120 111 160 15 20 35 45 85 85 85 15 14 13 200 290 180 154 69 25 288"
-
-  const options = {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({cortes : cortes}),
-  };
-  fetch('http://localhost/api/calculos/cortes', options)
-  .then(data => {
-    if (!data.ok) {
-      throw Error(data.status);
-     }
-     return data.json();
-    })
-    .then(update => {
-      console.log(update);      
-    })
-    .catch(e => {
-      console.log(e);
-    });
-})
