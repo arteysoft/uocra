@@ -9,6 +9,22 @@ google.charts.setOnLoadCallback(() => {
 });
 */
 
+let adaptandoFormatoApi = (estrucutraOriginal) => {
+    let listoConMasCortes = estrucutraOriginal.reduce((acum,item) => {
+        if (acum > item.cortes.length){
+            return acum
+        } else {
+            return item.cortes.length
+        }},0)
+    
+    estrucutraOriginal.forEach(item => {
+        let diferencia = listoConMasCortes - item.cortes.length
+        item.cortes = item.cortes.concat(new Array(diferencia).fill(0))
+    });
+
+    return estrucutraOriginal
+}
+
 function drawChart(mejorSolucion) {    
     console.log('drawChart function called');
     // const cortesInput = document.getElementById('cortesInput').value;
@@ -22,6 +38,11 @@ function drawChart(mejorSolucion) {
     const dataTable = new google.visualization.DataTable();
     dataTable.addColumn('string', 'Listón');
     dataTable.addColumn('number', 'Cortes');
+    dataTable.addColumn('number', 'Cortes');
+    dataTable.addColumn('number', 'Cortes');
+    dataTable.addColumn('number', 'Cortes');
+    dataTable.addColumn('number', 'Cortes');
+    dataTable.addColumn('number', 'Cortes');
     dataTable.addColumn({ type: 'string', role: 'annotation' });
 
     let {tuSolucion} = mejorSolucion
@@ -29,10 +50,28 @@ function drawChart(mejorSolucion) {
     console.log(JSON.stringify(tuSolucion))
 
     console.log(tuSolucion)
-    console.log(typeof mejorSolucion)
+    adaptandoFormatoApi(tuSolucion)
+    console.log(tuSolucion)
+    
+    dataTable.addRow(
+        ['Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime', 'General',
+         'Western', 'Literature', { role: 'annotation' } ])
+
     tuSolucion.forEach((item, index) => {
-        dataTable.addRow([`Listón ${index + 1}`, ...item.cortes, '']);
+        let arr = [`Listón ${index + 1}`, ...item.cortes, '']
+        arr = [`Listón 1`, 1, 2, 3, 4, 5, 6, '']
+
+        console.log(arr)
+        dataTable.addRow(arr);
     });
+
+    dataTable = google.visualization.arrayToDataTable([
+        ['Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime', 'General',
+         'Western', 'Literature', 'hola', 'chau', { role: 'annotation' } ],
+        ['2010', 10, 24, 20, 32, 18, 5, 100, 200,''],
+        ['2020', 16, 22, 23, 30, 16, 9, 0, 200,''],
+        ['2030', 28, 19, 29, 30, 12, 13, 100, 200,'']
+      ]);
 
     const options = {
         width: 600,
@@ -41,6 +80,8 @@ function drawChart(mejorSolucion) {
         bar: { groupWidth: '30%' },
         isStacked: true,
     };
+
+    console.log(dataTable)
 
     const chart = new google.visualization.ColumnChart(document.getElementById('graficoCortes'));
     chart.draw(dataTable, options);
