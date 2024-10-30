@@ -1,5 +1,3 @@
-// import { forEver } from '../Src/Cortes-liston/main.ts';
-
 google.charts.load('current', { 'packages': ['corechart'] });
 
 /*
@@ -25,53 +23,63 @@ let adaptandoFormatoApi = (estrucutraOriginal) => {
     return estrucutraOriginal
 }
 
-function drawChart(mejorSolucion) {    
-    console.log('drawChart function called');
-    // const cortesInput = document.getElementById('cortesInput').value;
-    // console.log('Cortes input:', cortesInput);
-    //const cortes = cortesInput.split(' ').map(Number);
-    //console.log('Cortes array:', cortes);
-
-    // Simular la respuesta de la API    
-    // const mejorSolucion = cortes.map((corte, index) => ({ cortes: corte }));
-
-    const dataTable = new google.visualization.DataTable();
-    dataTable.addColumn('string', 'Listón');
-    dataTable.addColumn('number', 'Cortes');
-    dataTable.addColumn('number', 'Cortes');
-    dataTable.addColumn('number', 'Cortes');
-    dataTable.addColumn('number', 'Cortes');
-    dataTable.addColumn('number', 'Cortes');
-    dataTable.addColumn('number', 'Cortes');
-    dataTable.addColumn({ type: 'string', role: 'annotation' });
-
-    let {tuSolucion} = mejorSolucion
-
-    console.log(JSON.stringify(tuSolucion))
-
-    console.log(tuSolucion)
-    adaptandoFormatoApi(tuSolucion)
-    console.log(tuSolucion)
-    
-    dataTable.addRow(
-        ['Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime', 'General',
-         'Western', 'Literature', { role: 'annotation' } ])
-
-    tuSolucion.forEach((item, index) => {
-        let arr = [`Listón ${index + 1}`, ...item.cortes, '']
-        arr = [`Listón 1`, 1, 2, 3, 4, 5, 6, '']
-
-        console.log(arr)
-        dataTable.addRow(arr);
-    });
-
-    dataTable = google.visualization.arrayToDataTable([
-        ['Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime', 'General',
+function drawChartCompatible() {
+    var data = google.visualization.arrayToDataTable([
+        ['TIENE QUE IR', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime', 'General',
          'Western', 'Literature', 'hola', 'chau', { role: 'annotation' } ],
         ['2010', 10, 24, 20, 32, 18, 5, 100, 200,''],
         ['2020', 16, 22, 23, 30, 16, 9, 0, 200,''],
         ['2030', 28, 19, 29, 30, 12, 13, 100, 200,'']
       ]);
+
+      var options = {
+        width: 600,
+        height: 400,
+        legend: { position: 'top', maxLines: 3 },
+        bar: { groupWidth: '75%' },
+        isStacked: true,
+      };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('graficoCortes'));
+
+    chart.draw(data, options);
+}
+
+
+function drawChart(mejorSolucion) {    
+
+    let {tuSolucion} = mejorSolucion
+
+    adaptandoFormatoApi(tuSolucion)
+
+    // let xss = []
+    let arrAux = new Array(tuSolucion[0].cortes.length).fill(0).map((z, i) => (i+1).toString())
+
+    let titulos = ['no se para q es', ...arrAux, 'desp', { role: 'annotation' }]
+    let tituloOriginal = ['TIENE QUE IR', '1', '2', '3', '4', '5', '6', { role: 'annotation' }]
+
+    let xssAltenativo = [
+        titulos
+    ]
+
+    let xss = [
+        tituloOriginal
+    ]
+
+    tuSolucion.forEach((item, index) => {        
+        // arr = [`Listón 1`, 1, 2, 3, 4, 5, 6, 7, 8, '']
+        let arrOrg = [`Listón ${index + 1}`, 1, 2, 3, 4, 5, 6, 'z']
+        let arrAlternativo = [`Listón ${index + 1}`, ...item.cortes, item.desperdicio, '']
+        // arr = [`Listón ${index + 1}`, ...item.cortes, '']
+        
+        xss.push(arrOrg)
+        xssAltenativo.push(arrAlternativo)
+    });
+
+    let dataTable = google.visualization.arrayToDataTable(xssAltenativo);
+
+    // Simular la respuesta de la API    
+    // const mejorSolucion = cortes.map((corte, index) => ({ cortes: corte }));
 
     const options = {
         width: 600,
@@ -81,11 +89,11 @@ function drawChart(mejorSolucion) {
         isStacked: true,
     };
 
-    console.log(dataTable)
+    console.log(xss)
+    console.log(xssAltenativo)
 
     const chart = new google.visualization.ColumnChart(document.getElementById('graficoCortes'));
-    chart.draw(dataTable, options);
-    console.log('Chart drawn');
+    chart.draw(dataTable, options);    
 }
 
 
@@ -99,9 +107,10 @@ document.getElementById('generarGrafico').addEventListener('click', () => {
         },
         body: JSON.stringify({cortes : cortes}),
     };
-    fetch('http://localhost/api/calculos/cortes', options)
+    fetch('/api/calculos/cortes', options)
     .then(data => {
         if (!data.ok) {
+            alert('not ok')
             throw Error(data.status);
         }
             return data.json();
@@ -109,8 +118,9 @@ document.getElementById('generarGrafico').addEventListener('click', () => {
         .then(z => {
             console.log(z);   
             drawChart(z)
+            // drawChartCompatible()
         })
         .catch(e => {
-            console.log(e);
+            alert(e)
         });
 })
