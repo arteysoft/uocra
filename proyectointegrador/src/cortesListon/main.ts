@@ -5,8 +5,11 @@ export let corteListon = () => {
     forEver("10 20 50 120 111 160 15 20 35 45 85 85 85 15 14 13 200 290 180 154 69 25 288")
 }
 let calcularDesperdicio = (sumaCortes, tamanioListon) => {
+    return tamanioListon - sumaCortes
+    /*
     return Math.floor(1000 - Math.round(sumaCortes /
         tamanioListon * 1000)) / 10
+    */
 }
 
 export let aplicarCortes = (cortes: number[], tamanioListon: number) => {
@@ -77,8 +80,9 @@ let encontrarSolucion = (cortesParam):ItemSolucion[] => {
 }
 
 // Iterar hata encontrar la mejor solucion
+// forEver :: string => ItemSolucion[]
 
-export let forEver = (strCortes: string) => {
+export let forEver = (strCortes: string):ItemSolucion[] => {
     let mejorSolucion:ItemSolucion[] = []
     let menorDesperdicio = Infinity
  

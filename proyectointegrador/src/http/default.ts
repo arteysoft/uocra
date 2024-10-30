@@ -19,8 +19,8 @@ export default () => {
         res.send("hola").end()
     })
 
-    app.listen(3000, () => {
-        console.log('escuchando puerto 3000')
+    app.listen(80, () => {
+        console.log('escuchando puerto 80')
     })
 
     /*
