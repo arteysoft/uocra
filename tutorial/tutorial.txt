@@ -1,0 +1,152 @@
+Tutorial para la instalacion de typescript y express
+
+
+npm init con sus respectivas preguntas me va a generar
+el package.json
+
+luego instalamos typescript 
+
+npm install typescript --save-dev o tambien -D
+
+Ahora instalamos los tipos de datos de nodejs
+
+npm install @types/node --save-dev
+
+como ya tenemos typescript ahora inicializamos el archivo tsconfig.json
+
+.\node_modules\.bin\tsc --init
+
+En el tsconfig.json agregamos las keys
+
+"outDir": "./build"
+"rootDir": "./src"
+
+creo la carpeta ./src
+
+voy a poner un archivo llamado server.ts
+
+escribo algo en el server.ts para verificar que todo funciona bien
+
+variantes: puedo usar tsc para compilar, o lo mas probable que usemos
+           ts-node-dev
+
+.\node_modules\.bin\tsc para compilar
+
+node build/server.js
+
+para la version mas sofisticada ? hay que instalar
+
+npm install ts-node ts-node-dev
+
+Para correr ahora 
+
+.\node_modules\.bin\ts-node-dev ./src/server.ts
+
+Pasamos a instalar express
+
+npm install express
+npm install @types/express --save-dev
+
+por otra parte, esta bueno tener en un script en npm
+algo para realizar start de el servidor http
+
+"scripts": {
+    "start": ".\\node_modules\\.bin\\ts-node-dev ./src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+
+Lo siguiente es: npm start
+
+creando nuestro servidor http
+crear una carpeta public, para posteriormente referenciarla
+en path.join
+
+    let app = express()
+
+    app.use(express.json());
+    app.use(express.static(
+        path.join(__dirname, '../public')));
+
+    app.get("/hola", (req, res) => {
+        res.send("hola").end()
+    })
+
+    app.listen(3000, () => {
+        console.log('escuchando puerto 3000')
+    })
+
+creamos la carpeta public con mkdir public
+
+para probar creamos una archivo html en public
+y hacemos un get a localhost/hola
+
+Verificamos que las dos cosas esten bien
+
+concepto de rutas
+
+creamos la carpeta routes
+
+mkdir routes
+
+en un archivo calculosRouter.ts
+
+import express from 'express'
+
+export default express.Router()    
+    .post('/sumar', async (request, response) => {
+
+        console.log(request.body)
+
+        const total = request.body.x + request.body.y
+
+        try {
+            response            
+            .status(200)
+            .send(JSON.stringify({total}))
+        }
+        catch(err) {
+            response            
+            .status(500)
+            .send()
+        }
+    })
+
+el el server.ts hay que agregar la ruta
+
+1) importar el router 
+
+import calculosRouter from './routes/calculosRouter';
+
+2) darlo de alta con use
+
+app.use('/api/calculos', calculosRouter)
+
+Ahora una vez hecho npm start, vamos a probar el post
+para eso utilizamos el api de fetch.
+
+const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({x:230, y: 250}),
+};
+
+    fetch('/api/calculos/sumar', options)
+    .then(data => {
+        if (!data.ok) {
+            alert('not ok')
+            throw Error(data.status);
+        }
+            return data.json();
+        })
+        .then(z => {
+            alert(JSON.stringify(z));
+        })
+        .catch(e => {
+            alert(e)
+        });
+
+
+
+
