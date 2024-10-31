@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gráfico de Cortes de Listones</title>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <style>
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+    </style>
+
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
+    ></script>
+    <script type="text/javascript">
+      google.charts.load("current", { packages: ["corechart"] });
+
+      function drawChart() {
+        var corte300 = [];
+        var corte420 = [];
+        
+        for (var i = 1; i <= 15; i++) {
+          corte300.push(parseInt(document.getElementById("corte300_" + i).value));
+          corte420.push(parseInt(document.getElementById("corte420_" + i).value));
+        }
+
+        var data = google.visualization.arrayToDataTable([
+          [
+            "Listones",
+            ...Array.from({ length: 15 }, (_, i) => "Corte " + (i + 1)),
+            { role: "annotation" },
+          ],
+          [
+            "300 metros",
+            ...corte300,
+            "",
+          ],
+          [
+            "420 metros",
+            ...corte420,
+            "",
+          ],
+        ]);
+
+        var options = {
+          width: "100%",
+          height: 400,
+          legend: { position: "top", maxLines: 3 },
+          bar: { groupWidth: "75%" },
+          isStacked: true,
+          colors: [
+            "#FF5733", "#33FF57", "#3357FF", "#F39C12", "#8E44AD",
+            "#D35400", "#2980B9", "#A569BD", "#C0392B", "#16A085", 
+            "#27AE60", "#6F4C3E", "#1F618D", "#F4D03F", "#AAB7B8", "#2E4053"
+          ],
+        };
+
+        var chart = new google.visualization.ColumnChart(
+          document.getElementById("chart_div")
+        );
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">Gráfico de Cortes de Listones</h2>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Listón de 300 metros</h5>
+          <div id="corte300Inputs">
+            <!-- Inputs for 300 meter cuts -->
+            <script>
+              for (var i = 1; i <= 15; i++) {
+                document.write(`
+                  <label for="corte300_${i}">Corte ${i}:</label>
+                  <input id="corte300_${i}" type="number" class="form-control" value="${Math.floor(Math.random() * 200)}" />
+                `);
+              }
+            </script>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h5>Listón de 420 metros</h5>
+          <div id="corte420Inputs">
+            <!-- Inputs for 420 meter cuts -->
+            <script>
+              for (var i = 1; i <= 15; i++) {
+                document.write(`
+                  <label for="corte420_${i}">Corte ${i}:</label>
+                  <input id="corte420_${i}" type="number" class="form-control js-uncorte" value="${Math.floor(Math.random() * 200)}" />
+                `);
+              }
+            </script>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <button class="btn btn-primary">
+          Generar Gráfico
+        </button>
+      </div>
+
+      <div id="chart_div" class="border rounded p-3 bg-light mt-4"></div>
+    </div>
+    <script>
+      let elem = Array.from(document.getElementsByClassName('js-uncorte')).map(z => z.value)
+      console.log(elem)
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

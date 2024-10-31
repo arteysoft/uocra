@@ -52,10 +52,12 @@ function drawChart(mejorSolucion) {
 
     adaptandoFormatoApi(tuSolucion)
 
+    let etiquetaDesp = tuSolucion.reduce((a, i) => a + i.desperdicio, 0)
+
     // let xss = []
     let arrAux = new Array(tuSolucion[0].cortes.length).fill(0).map((z, i) => (i+1).toString())
 
-    let titulos = ['no se para q es', ...arrAux, 'desp', { role: 'annotation' }]
+    let titulos = ['no se para q es', ...arrAux, `Desperticio total: ${etiquetaDesp}`, { role: 'annotation' }]
     let tituloOriginal = ['TIENE QUE IR', '1', '2', '3', '4', '5', '6', { role: 'annotation' }]
 
     let xssAltenativo = [
@@ -65,11 +67,13 @@ function drawChart(mejorSolucion) {
     let xss = [
         tituloOriginal
     ]
-
-    tuSolucion.forEach((item, index) => {        
+    
+    tuSolucion.forEach((item, index) => { 
+               
         // arr = [`Listón 1`, 1, 2, 3, 4, 5, 6, 7, 8, '']
         let arrOrg = [`Listón ${index + 1}`, 1, 2, 3, 4, 5, 6, 'z']
         let arrAlternativo = [`Listón ${index + 1}`, ...item.cortes, item.desperdicio, '']
+
         // arr = [`Listón ${index + 1}`, ...item.cortes, '']
         
         xss.push(arrOrg)
