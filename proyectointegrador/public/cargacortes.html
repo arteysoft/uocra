@@ -80,6 +80,10 @@
     <div class="container mt-5">
       <h2 class="text-center mb-4">Gráfico de Cortes de Listones</h2>
 
+      <div id="contenido">
+
+      </div>
+
       <div class="row">
         <div class="col-md-6">
           <h5>Listón de 300 metros</h5>
@@ -123,11 +127,27 @@
     <script>
       let elem = Array.from(document.getElementsByClassName('js-uncorte')).map(z => z.value)
       console.log(elem)
+    </script>
 
+    <script id="tmplParticipantes" type="template">
+      Los participantes somos: <h1>{{.}}</h1>
+    </script>
+    <script id="tmplInputText" type="template">
+        <h1>Los participantes son: </h1>
+        {{#grupoRep}}          
+          <h2>{{nombre}}</h2>
+        {{/grupoRep}}
+    </script>
+    <script id="tmplInput300" type="template">
+      {{#grupoRep}}
+      <label for="corte300_{{idx}}">Corte {{idx}}:</label>
+      <input id="corte300_{{idx}}" type="text" class="form-control js-input300" value="{{numeroRandom}}_hola" />
+      {{/grupoRep}}
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>        
+    <script src="./js/mustache.js"></script>
   </body>
 </html>
