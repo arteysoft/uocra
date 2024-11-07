@@ -1,0 +1,13 @@
+CREATE TABLE uocra.choferes (
+	id varchar(36) CHARACTER SET utf8 NOT NULL,
+	CONSTRAINT choferes_pk PRIMARY KEY (id),
+	nombre VARCHAR(60) NOT NULL,
+	le_gusta_su_trabajo BOOLEAN NOT NULL,
+        cantidad_de_accidentes INT NOT NULL
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_general_ci;
+
+DROP TABLE IF EXISTS uocra.choferes;
+
