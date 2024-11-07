@@ -1,0 +1,22 @@
+/*
+le gusta su trabajo y no tiene accidentes.         AZL
+No le gusta su trabajo y no tiene accidentes       ANDY
+le gusta su trabajo y tuvo accidentes              AXL
+No le gusta su trabajo y tuvo accidentes           FACU
+*/
+
+INSERT choferes (id, nombre, le_gusta_su_trabajo, cantidad_de_accidentes)
+VALUES ('61e686e3-9d58-11ef-935e-d85ed3eb5157', 'AZL', TRUE, 0)
+
+INSERT choferes (id, nombre, le_gusta_su_trabajo, cantidad_de_accidentes)
+VALUES ('aa2ebebe-f3a4-4c05-96f0-f6fa3dcb183a', 'ANDY', FALSE, 0)
+
+INSERT choferes (id, nombre, le_gusta_su_trabajo, cantidad_de_accidentes)
+VALUES ('2352da57-f957-47df-9da7-631a9eaa4f85', 'AXL', TRUE, 4)
+
+INSERT choferes (id, nombre, le_gusta_su_trabajo, cantidad_de_accidentes)
+VALUES ('8f5b2135-0a00-49d0-a966-76a73bcc8783', 'AXL', TRUE, 4)
+
+    
+
+
