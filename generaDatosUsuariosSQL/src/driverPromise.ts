@@ -9,43 +9,27 @@ export let crearConexion = async ():Promise<todoElDriver.Connection> => {
         database: 'uocra'
     }
 
-    return await todoElDriver.createConnection(config)
+    return todoElDriver.createConnection(config)
 }
 
-export let cerrarConexion = async (connection) => {
-    return new Promise((resolve, reject) => {
-        connection.end(err => {
-            if (err) {
-                reject(err)
-                return
-            }
-            resolve(null)
-        })
-    })
+export let query = async (
+        connection:todoElDriver.Connection, 
+        strSQL:string, 
+        arrValues:(string | number)[]
+        ):
+        Promise<[todoElDriver.QueryResult, todoElDriver.FieldPacket[]]> => {
+         
+        return await connection.query(strSQL, arrValues)    
 }
 
-export let connect = (connection) => {
-    return new Promise((resolve, reject) => {
-        connection.connect(err => {
-            if (err) {
-                reject(err)
-                return
-            }
-            resolve(null)
-        })
-    })
-}
+let fn = async (
+            a:number, 
+            b:number, 
+            c: string, 
+            d: string):
+            Promise<[number, string]> => { 
 
-export let query = async (connection, strSQL, arrValues:(string | number)[] = []) => {
-    return new Promise((resolve, reject) => {
-        connection.query(strSQL, arrValues, (err, resultset:any[]) => {
-            if (err) {
-                reject(err)
-                return
-            }
-            resolve(resultset)
-        })
-    })
+    return [a + b , d.concat(c)]
 }
 
 export let insert = query

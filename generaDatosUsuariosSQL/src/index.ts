@@ -1,9 +1,9 @@
 import 'dotenv/config'
 import crearObjetoFake from './genusuario'
-import { cerrarConexion, crearConexion, query } from './driverPromise'
+import { crearConexion, query } from './driverPromise'
 
 let fnInit = async () => {
-    let conn = crearConexion()
+    let conn = await crearConexion()
     let sql = "INSERT INTO usuarios values (?, ?, ?, ?, ?, ?, ?, ?, ?)"
     
     for (let idx = 0; idx < 100000; idx++) {
@@ -11,9 +11,10 @@ let fnInit = async () => {
         let xsIns = Object.values(crearObjetoFake())
         await query(conn, sql, xsIns)
     }
-    await cerrarConexion(conn)
+    conn.end()
 }
 
+/*
 let fnSeleccionChoferes = async () => {
     let conn = crearConexion()   
     let sqlSelect = "SELECT * FROM choferes"
@@ -72,3 +73,14 @@ let convertirArray = (resultSet) => {
     }
     return nombres
 }
+*/
+
+fnInit()
+
+/*
+En vez de llamar a fnInit, quiero que hagan un select sobre la tabla
+usuarios con un where que tengo nombre = 'Andy' y ammount > 1
+
+
+
+*/
