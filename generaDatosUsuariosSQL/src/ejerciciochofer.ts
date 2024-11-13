@@ -5,7 +5,7 @@ import { crearConexion, query } from './driverPromise'
 let fnSeleccionChoferes = async () => {
     let conn = crearConexion()   
     let sqlSelect = "SELECT * FROM choferes"
-    let resultSet = await query(conn, sqlSelect, [0])    
+    let resultSet = await query(conn, sqlSelect, [0])
     await cerrarConexion(conn)
     return resultSet
 }
