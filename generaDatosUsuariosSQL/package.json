@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "compilar": ".\\node_modules\\.bin\\tsc --watch",
-    "start": ".\\node_modules\\.bin\\ts-node-dev .\\src\\index.ts http"
+    "start": ".\\node_modules\\.bin\\ts-node-dev .\\src\\index.ts"
   },
   "keywords": [],
   "author": "",

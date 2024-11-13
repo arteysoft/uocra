@@ -14,5 +14,5 @@ let fnInit = async (cant) => {
     conn.end()
 }
 
-fnInit(100000)
+fnInit(300000)
 
