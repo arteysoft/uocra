@@ -1,0 +1,18 @@
+[
+    {   "nombre" : "0",
+        "opciones" : ["1 - Sucursales disponibles",
+                      "2 - Agregar sucursal ",
+                      "3 - Borrar sucursal",
+                      "4 - Salir"],
+        "tipoTarget" : ["menu","funcion","funcion","salir"],
+        "target" : ["1","agregandoSuc","borrarSuc","n/a"]
+    },
+    {   "nombre" : "1",
+        "opciones" : ["1 - Provincia",
+                      "2 - Capital",
+                      "3 - Volver",
+                      "4 - Salir"],
+        "tipoTarget" : ["funcion","funcion","menuAnterior","salir"],
+        "target" : ["verSucProvincia","verSucCapital","0","n/a"]
+    }
+]
