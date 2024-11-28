@@ -1,5 +1,6 @@
 import 'dotenv/config'
 let readLine = require('node:readline')
+let fs = require('fs/promises')
 
 type soloInputString = () => Promise<string>
 
@@ -28,9 +29,9 @@ let ingresarNumero = async (arrNumber:Array<any>) => {
         throw new Error('El numero ingresado no es un numero ')
     }    
     if (arrNumber.some(z => z === xInt) === false) {
-        throw new Error('El numero ingresado' + xInt + ',no esta dentro del array ' + arrNumber.join())
+        throw 'El numero ingresado ' + xInt + ', no esta dentro del array ' + arrNumber.join()
     }
-    return xInt
+    return arrNumber.indexOf(xInt)
 }
 
 let vamosAleer2veces = async () => {    
@@ -43,37 +44,57 @@ let vamosAleer2veces = async () => {
 // vamosAleer2veces()
 
 let menu = async (estructuraMenu:Array<any>) => {    
-    /*
-    Vamos a realizar nuestra propuesta
-    Supongamos que tenemos muchos menues.
+    
+    let PUNTERO_ITEM_MENU_ACTUAL = 0
 
-    Se hacer una funcion que yo la llamo y me muestre un menu
-    y que al yo presionar una opcion realize una tarea ?
 
-    El tema es que si, utilizamos la aproximacion de abajo ?
-    Me quedo con una funcion concreta NO reutilizable
-
-    */
     let salir = false
     while (!salir) {
-        try {
-            let opcionesValidas = estructuraMenu.map(z => z[0])
+        try {            
+            let objConfigActual = estructuraMenu[PUNTERO_ITEM_MENU_ACTUAL]
+            console.log(objConfigActual)
+            console.log(objConfigActual.strOpciones.join('\n'))
+            let opcionesValidas = objConfigActual.opciones
             console.log("Ingrese " + opcionesValidas.join())
             let opcionElegida = await ingresarNumero (opcionesValidas)
-            let encontrada = estructuraMenu.filter(z => z[0] === opcionElegida)
-            if (encontrada.length === 1){
-                console.log("YA ESTA PAPA")
-                encontrada[0][1]()
+            console.log(objConfigActual.tipoTarget[opcionElegida])
+            switch (objConfigActual.tipoTarget[opcionElegida]) {
+                case 'menu': {
+                    let opcElegida = objConfigActual.target[opcionElegida]
+                    console.log('proximo nombre de nodo: ', opcElegida)
+                    let posOpcionElegida = estructuraMenu.filter(z => z.nombre === opcElegida)
+                    console.log(posOpcionElegida)
+                    }
+                    break                       
+                case  "salir":
+                    salir = true
+                    break
+                default:
+                    console.log('GUARDA QUE ENTRO POR ACA !!!!')
+                    break
             }
+
+            
+            
         }
         catch (err) {
-            console.log(err)
-            console.log('debe ingresar ' + estructuraMenu.join())
+            console.log(err)            
+            console.log()
         }
     }
 }
 
+let leerConfiguracionMenu = async ():Promise<Object[]> => {
+    let rutaArchivo = process.env["PATH_ARCHIVO_CFG_MENU"]    
+    let contenidoConfStr = await fs.readFile(rutaArchivo, { encoding: 'utf-8'})    
+    let objConfiguracionMenu = JSON.parse(contenidoConfStr)
+
+    return objConfiguracionMenu
+}
+
+
 {   
+    /*
     let f2 = () =>{
         console.log("Soy 2")
     }
@@ -83,7 +104,12 @@ let menu = async (estructuraMenu:Array<any>) => {
     let f6 = () =>{
         console.log("Soy 6")
     }
+    */
 
-    menu([[2,f2],[4,f4],[6,f6]])
+    leerConfiguracionMenu().then(cfg => menu(cfg))
+    .catch(err => console.log(err))    
 }
+
+
+
 
