@@ -1,6 +1,8 @@
 import 'dotenv/config'
+import objFunciones from './funciones_menu/arrGlobalFunciones'
 let readLine = require('node:readline')
 let fs = require('fs/promises')
+
 
 type soloInputString = () => Promise<string>
 
@@ -45,13 +47,13 @@ let vamosAleer2veces = async () => {
 
 let menu = async (estructuraMenu:Array<any>) => {    
     
-    let PUNTERO_ITEM_MENU_ACTUAL = 0
+    let PUNTERO_NODO_MENU_ACTUAL = 0
 
 
     let salir = false
     while (!salir) {
         try {            
-            let objConfigActual = estructuraMenu[PUNTERO_ITEM_MENU_ACTUAL]
+            let objConfigActual = estructuraMenu[PUNTERO_NODO_MENU_ACTUAL]
             console.log(objConfigActual)
             console.log(objConfigActual.strOpciones.join('\n'))
             let opcionesValidas = objConfigActual.opciones
@@ -60,27 +62,36 @@ let menu = async (estructuraMenu:Array<any>) => {
             console.log(objConfigActual.tipoTarget[opcionElegida])
             switch (objConfigActual.tipoTarget[opcionElegida]) {
                 case 'menu': {
-                    let opcElegida = objConfigActual.target[opcionElegida]
-                    console.log('proximo nombre de nodo: ', opcElegida)
-                    let posOpcionElegida = estructuraMenu.filter(z => z.nombre === opcElegida)
-                    console.log(posOpcionElegida)
+                    let proxNombreNodo = objConfigActual.target[opcionElegida]
+                    console.log('proximo nombre de nodo: ', proxNombreNodo)
+                    let posOpcionElegida = estructuraMenu.findIndex(z => z.nombre === proxNombreNodo)
+                    if (posOpcionElegida === -1) {
+                        throw ["No se encontro el nombre de nodo ", proxNombreNodo, " en la configuracion del menu"].join('')
+                    }
+                    PUNTERO_NODO_MENU_ACTUAL = posOpcionElegida
                     }
                     break                       
                 case  "salir":
                     salir = true
                     break
+                case "funcion":
+                    let nombreFuncionAplicar = objConfigActual.target[opcionElegida]                    
+                    objFunciones[nombreFuncionAplicar]()
+                    break
                 default:
                     console.log('GUARDA QUE ENTRO POR ACA !!!!')
                     break
             }
-
-            
-            
         }
         catch (err) {
             console.log(err)            
             console.log()
         }
+        console.log()
+        console.log()
+        console.log()
+        console.log()
+        console.log()
     }
 }
 
