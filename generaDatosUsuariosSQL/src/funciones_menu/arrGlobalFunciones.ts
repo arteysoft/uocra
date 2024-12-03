@@ -1,5 +1,5 @@
 import verSucursalesProvincia from "./verSucursalesProvincia";
-import cualqui from './cualqui'
+import cualqui from './explorarExceptions'
 
 let objFunciones:Object = {}
 
