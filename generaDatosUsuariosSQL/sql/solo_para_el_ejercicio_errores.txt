@@ -1,0 +1,9 @@
+CREATE TABLE uocra.reservas (
+	id varchar(36) CHARACTER SET utf8 NOT NULL,	
+	numero_reserva TINYINT NOT NULL
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_general_ci;
+
+DROP TABLE IF EXISTS uocra.reservas;
